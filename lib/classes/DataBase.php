@@ -49,4 +49,20 @@ class DataBase extends \mysqli {
 		$string = $this->real_escape_string($string);
 	}
 
+	public function get_results($query) {
+		$results = $this->query($query);
+		if(false === $results){
+			$result = false;
+		} elseif(true === $results){
+			$result = true;
+		} else {
+			$result = array();
+			while( $obj = $results->fetch_object() ){
+				$result[] = $obj;
+			}
+		}
+		$results->close();
+		return $result;
+	}
+
 }

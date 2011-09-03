@@ -101,6 +101,7 @@ class DataBase extends \mysqli {
 		while( $table = $tables->fetch_row() ){
 			$table_list = array_merge($table_list, $table);
 		}
+		$tables->close();
 		return $table_list;
 	}
 	

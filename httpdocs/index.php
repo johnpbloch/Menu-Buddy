@@ -1,5 +1,10 @@
 <?php
 
-define( 'PATH', dirname( __FILE__ ) . '/' );
+namespace MenuBuddy;
+
+define( 'PATH', dirname( dirname( __FILE__ ) ) . '/' );
 
 require( PATH . 'load.php' );
+
+$MenuBuddy = new MenuBuddy();
+$MenuBuddy->run();

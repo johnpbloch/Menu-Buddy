@@ -27,6 +27,8 @@ class DataBase extends \mysqli {
 		if($this->connect_error){
 			die( '<h1>Database Connection Error (' . $this->connect_errno . ')</h1><p>' . $this->connect_error . '</p>' );
 		}
+		
+		$this->set_charset('utf8');
 	}
-	
+
 }

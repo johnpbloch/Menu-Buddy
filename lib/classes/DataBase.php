@@ -4,6 +4,14 @@ namespace MenuBuddy;
 
 class DataBase extends \mysqli {
 
+	private $dbhost;
+	
+	private $dbuser;
+	
+	private $dbpass;
+	
+	private $dbname;
+	
 	protected $prefix;
 
 	public function __construct( $name='', $user='', $pass='', $host='', $prefix='' ) {
@@ -19,7 +27,11 @@ class DataBase extends \mysqli {
 			$prefix = MB_DB_PREFIX;
 
 		$host = ('p:' == substr($host, 0, 2)) ? $host : "p:$host";
-
+		
+		$this->dbhost = $host;
+		$this->dbuser = $user;
+		$this->dbpass = $pass;
+		$this->dbname = $name;
 		$this->prefix = $prefix;
 
 		parent::__construct( $host, $user, $pass, $name );

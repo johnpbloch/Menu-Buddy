@@ -18,7 +18,7 @@ class DataBase extends \mysqli {
 		if( empty ($prefix) )
 			$prefix = MB_DB_PREFIX;
 		
-		$host = preg_match('/^p:/', $host) ? $host : "p:$host";
+		$host = ('p:' == substr($host, 0, 2)) ? $host : "p:$host";
 		
 		$this->prefix = $prefix;
 		

@@ -1,4 +1,5 @@
 <?php
+
 namespace MenuBuddy;
 
 require( PATH . 'config.php' );

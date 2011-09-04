@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($this))
+if( !isset( $this ) )
 	return;
 
 $schema = "CREATE TABLE `{$this->dbname}`.`{$this->$table}` (
@@ -16,4 +16,4 @@ $schema = "CREATE TABLE `{$this->dbname}`.`{$this->$table}` (
 )
 ENGINE = MyISAM;";
 
-$this->query($schema);
+$this->query( $schema );

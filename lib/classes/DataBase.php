@@ -81,7 +81,7 @@ class DataBase extends \mysqli {
 	
 	private function init_tables(){
 		$tables = array(
-			'users',
+			'Users',
 		);
 		$check_tables = (defined('CHECK_TABLES') && CHECK_TABLES);
 		$table_list = $check_tables ? $this->fetch_table_list() : false;
@@ -106,9 +106,9 @@ class DataBase extends \mysqli {
 	}
 	
 	private function install_table( $table ){
-		/**
-		 * @todo schema installation
-		 */
+		if(file_exists(PATH . "schema/$table.php")){
+			require( PATH . "schema/$table.php" );
+		}
 	}
 
 }

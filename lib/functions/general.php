@@ -16,7 +16,7 @@ namespace MenuBuddy {
 	}
 
 	function is_email( $maybe_email ){
-		return preg_match( '|^([-_a-z0-9]+(\.[-_a-z0-9]+)*)@([-a-z0-9]+(\.[-a-z0-9]+)*(\.[a-z])+)$|i', $maybe_email );
+		return preg_match( '|^([-_a-z0-9]+(\.[-_a-z0-9]+)*)@([-a-z0-9]+(\.[-a-z0-9]+)*(\.[a-z]+)+)$|i', $maybe_email );
 	}
 
 }

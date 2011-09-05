@@ -3,12 +3,19 @@
 namespace MenuBuddy\Users;
 
 function get_user( $id_or_login_or_email ){
-	if( preg_match( '|^\d+$|', $id_or_login_or_email ) )
+	if( preg_match( '|^\d+$|', $id_or_login_or_email ) ){
+		$cache = UserCache::get( $id_or_login_or_email );
 		$where = '`ID` = %d';
-	elseif( \MenuBuddy\is_email( $id_or_login_or_email ) )
+	} elseif( \MenuBuddy\is_email( $id_or_login_or_email ) ){
+		$cache = UserCache::find_by( 'Email', $id_or_login_or_email );
 		$where = '`Email` = %s';
-	else
+	} else {
+		$cache = UserCache::find_by( 'Login', $id_or_login_or_email );
 		$where = '`Login` = %s';
+	}
+
+	if( $cache )
+		return $cache;
 
 	$DB = \MenuBuddy\db();
 	$query = "SELECT * FROM $DB->Users WHERE $where LIMIT 1";
@@ -16,6 +23,7 @@ function get_user( $id_or_login_or_email ){
 	if( $result->num_rows != 1 )
 		return false;
 	$user = $result->fetch_object( '\\MenuBuddy\\Users\\User' );
+	UserCache::set( $user );
 	return $user;
 }
 
@@ -29,7 +37,7 @@ function create_user( $details ){
 	);
 	$details = array_merge( $defaults, array_intersect_key( (array)$details, $defaults ) );
 	if( empty( $details[ 'Login' ] ) || empty( $details[ 'Email' ] ) || !\MenuBuddy\is_email( $details[ 'Email' ] ) || empty( $details[ 'Pass' ] ) )
-		return false;
+		return new \Exception( 'Not enough information', 1 );
 	if( empty( $details[ 'DisplayName' ] ) )
 		$details[ 'DisplayName' ] = $details[ 'Login' ];
 	if( !preg_match( '|^\d{4}(-\d\d){2} \d\d(:\d\d){2}$|', (string)$details[ 'DateCreated' ] ) )
@@ -38,9 +46,16 @@ function create_user( $details ){
 	$details[ 'Pass' ] = $hasher->HashPassword( $details[ 'Pass' ] );
 	$DB = \MenuBuddy\db();
 	$existing_user_check = $DB->get_results( $DB->prepare( "SELECT `ID` FROM $DB->Users WHERE `Login` = %s OR `Email` = %s", $details[ 'Login' ], $details[ 'Email' ] ) );
-	if( empty( $existing_user_check ) )
-		return $DB->insert( 'Users', $details );
-	return false;
+	if( !empty( $existing_user_check ) ){
+		if( count( $existing_user_check ) == 2 )
+			return new \Exception( 'Username and email already exist', 4 );
+		elseif( $existing_user_check[ 0 ]->Email == $details[ 'Email' ] )
+			return new \Exception( 'Email address already in use', 3 );
+		else
+			return new \Exception( 'Username already exists', 2 );
+	}
+	$result = $DB->insert( 'Users', $details );
+	return $result ? get_user( $details[ 'Email' ] ) : false;
 }
 
 function validate_auth_cookie(){

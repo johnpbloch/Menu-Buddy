@@ -42,3 +42,17 @@ function create_user( $details ){
 		return $DB->insert( 'Users', $details );
 	return false;
 }
+
+function validate_auth_cookie(){
+	if(isset ($_COOKIE['MenuBuddyAuth']))
+		return false;
+	$cookie = $_COOKIE['MenuBuddyAuth'];
+	$cookie_parts = explode('|', $cookie);
+	if(2 != count($cookie_parts))
+		return false;
+	$user = get_user($cookie_parts[0]);
+	if(!$user)
+		return false;
+	$value = md5( $user->Email . substr( $user->Pass, 8, 32 ) );
+	return $value == $cookie_parts[1];
+}

@@ -10,7 +10,7 @@ function check_password( $user, $password ){
 	return $hasher->CheckPassword( $password, $user->Pass );
 }
 
-function cookie( $user, $remember ){
+function cookie( $user, $remember = false ){
 	if( !is_object( $user ) || !is_a( $user, '\\MenuBuddy\\Users\\User' ) ){
 		$user = \MenuBuddy\Users\get_user( $user );
 	}

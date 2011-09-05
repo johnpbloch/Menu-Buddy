@@ -10,7 +10,7 @@ require( FUNC . 'authentication.php' );
 
 if( !empty ($_POST['account']) && !empty ($_POST['pass']) && Auth\check_password( $_POST['account'], $_POST['pass'])){
 	$user = Users\get_user($_POST['account']);
-	Auth\cookie($user, false);
+	Auth\cookie($user);
 	// @todo: need to redirect to previous page / home page.
 }
 

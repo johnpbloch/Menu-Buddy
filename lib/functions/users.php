@@ -79,3 +79,32 @@ function validate_auth_cookie(){
 		\MenuBuddy\Auth\delete();
 	return false;
 }
+
+function logged_in( $reset = false ){
+	static $current_user = null;
+	if( $reset ){
+		if( is_scalar( $reset ) )
+			$reset = get_user( $reset );
+		if( is_a( $reset, 'User' ) )
+			$current_user = $reset;
+		else
+			$current_user = null;
+	}
+	if( $current_user || false === $current_user )
+		return $current_user;
+	$id = validate_auth_cookie();
+	if( $id )
+		$current_user = get_user( $id );
+	else
+		$current_user = false;
+	return $current_user;
+}
+
+function is_logged_in(){
+	$current_user = logged_in();
+	return!empty( $current_user );
+}
+
+function log_out(){
+	\MenuBuddy\Auth\delete();
+}

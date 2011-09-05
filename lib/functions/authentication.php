@@ -19,7 +19,7 @@ function cookie( $user, $remember = false ){
 	$value = $user->Login;
 	$value .= '|';
 	$value .= md5( $user->Email . substr( $user->Pass, 8, 32 ) );
-	\setcookie( 'MenuBuddyAuth', $value, ($remember ? time() + 3600 * 24 : time() + 3600 * 24 * 14 ), '/', '', false, true );
+	\setcookie( 'MenuBuddyAuth', $value, ($remember ? time() + 3600 * 24 * 14 : 0 ), '/', '', false, true );
 }
 
 function delete(){

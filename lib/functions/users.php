@@ -74,7 +74,7 @@ function validate_auth_cookie(){
 	}
 	$value = md5( $user->Email . substr( $user->Pass, 8, 32 ) );
 	if( $value == $cookie_parts[ 1 ] )
-		return true;
+		return $user->ID;
 	else
 		\MenuBuddy\Auth\delete();
 	return false;

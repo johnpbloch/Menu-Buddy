@@ -48,11 +48,19 @@ function validate_auth_cookie(){
 		return false;
 	$cookie = $_COOKIE[ 'MenuBuddyAuth' ];
 	$cookie_parts = explode( '|', $cookie );
-	if( 2 != count( $cookie_parts ) )
+	if( 2 != count( $cookie_parts ) ){
+		\MenuBuddy\Auth\delete();
 		return false;
+	}
 	$user = get_user( $cookie_parts[ 0 ] );
-	if( !$user )
+	if( !$user ){
+		\MenuBuddy\Auth\delete();
 		return false;
+	}
 	$value = md5( $user->Email . substr( $user->Pass, 8, 32 ) );
-	return $value == $cookie_parts[ 1 ];
+	if( $value == $cookie_parts[ 1 ] )
+		return true;
+	else
+		\MenuBuddy\Auth\delete();
+	return false;
 }

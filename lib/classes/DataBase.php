@@ -75,6 +75,23 @@ class DataBase extends \mysqli {
 		return $result;
 	}
 
+	public function insert( $table, $data ){
+		if( isset( $this->$table ) )
+			$table = $this->$table;
+		$columns = implode( '`,`', array_keys( $data ) );
+		$formats = '';
+		foreach( $data as $value ){
+			if( is_numeric( $value ) )
+				$format = '%d';
+			else
+				$format = '%s';
+			$formats .= ",$format";
+		}
+		$formats = ltrim( $formats, ',' );
+		$query = "INSERT INTO `$table` (`$columns`) VALUES ($formats)";
+		return $this->query( $this->prepare( $query, array_values( $data ) ) );
+	}
+
 	private function init_tables(){
 		$tables = array(
 			'Users',

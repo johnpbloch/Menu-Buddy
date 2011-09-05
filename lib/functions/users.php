@@ -44,7 +44,7 @@ function create_user( $details ){
 }
 
 function validate_auth_cookie(){
-	if(isset ($_COOKIE['MenuBuddyAuth']))
+	if(!isset ($_COOKIE['MenuBuddyAuth']))
 		return false;
 	$cookie = $_COOKIE['MenuBuddyAuth'];
 	$cookie_parts = explode('|', $cookie);

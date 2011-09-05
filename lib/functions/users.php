@@ -1,21 +1,21 @@
 <?php
 
-namespace MenuBuddy;
+namespace MenuBuddy\Users;
 
 function get_user( $id_or_login_or_email ){
 	if( preg_match( '|^\d+$|', $id_or_login_or_email ) )
 		$where = '`ID` = %d';
-	elseif( is_email( $id_or_login_or_email ) )
+	elseif( \MenuBuddy\is_email( $id_or_login_or_email ) )
 		$where = '`Email` = %s';
 	else
 		$where = '`Login` = %s';
 
-	$DB = db();
+	$DB = \MenuBuddy\db();
 	$query = "SELECT * FROM $DB->Users WHERE $where LIMIT 1";
 	$result = $DB->query( $DB->prepare( $query, $id_or_login_or_email ) );
 	if( $result->num_rows != 1 )
 		return false;
-	$user = $result->fetch_object( '\\' . __NAMESPACE__ . '\\User' );
+	$user = $result->fetch_object( '\\MenuBuddy\\Users\\User' );
 	return $user;
 }
 
@@ -28,7 +28,7 @@ function create_user( $details ){
 		'Pass' => false,
 	);
 	$details = array_merge( $defaults, array_intersect_key( (array)$details, $defaults ) );
-	if( empty( $details[ 'Login' ] ) || empty( $details[ 'Email' ] ) || !is_email( $details[ 'Email' ] ) || empty( $details[ 'Pass' ] ) )
+	if( empty( $details[ 'Login' ] ) || empty( $details[ 'Email' ] ) || !\MenuBuddy\is_email( $details[ 'Email' ] ) || empty( $details[ 'Pass' ] ) )
 		return false;
 	if( empty( $details[ 'DisplayName' ] ) )
 		$details[ 'DisplayName' ] = $details[ 'Login' ];
@@ -36,7 +36,7 @@ function create_user( $details ){
 		$details[ 'DateCreated' ] = date( 'Y-m-d H:i:s' );
 	$hasher = new \PasswordHash( 16, false );
 	$details[ 'Pass' ] = $hasher->HashPassword( $details[ 'Pass' ] );
-	$DB = db();
+	$DB = \MenuBuddy\db();
 	$existing_user_check = $DB->get_results( $DB->prepare( "SELECT `ID` FROM $DB->Users WHERE `Login` = %s OR `Email` = %s", $details[ 'Login' ], $details[ 'Email' ] ) );
 	if( empty( $existing_user_check ) )
 		return $DB->insert( 'Users', $details );

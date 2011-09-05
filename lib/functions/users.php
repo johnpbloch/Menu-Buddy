@@ -23,6 +23,7 @@ function get_user( $id_or_login_or_email ){
 	if( $result->num_rows != 1 )
 		return false;
 	$user = $result->fetch_object( '\\MenuBuddy\\Users\\User' );
+	$result->close();
 	UserCache::set( $user );
 	return $user;
 }

@@ -4,15 +4,18 @@ namespace MenuBuddy\Users;
 
 function get_user( $id_or_login_or_email ){
 	if( preg_match( '|^\d+$|', $id_or_login_or_email ) ){
-		$cache = UserCache::get( $id_or_login_or_email );
 		$where = '`ID` = %d';
 	} elseif( \MenuBuddy\is_email( $id_or_login_or_email ) ){
-		$cache = UserCache::find_by( 'Email', $id_or_login_or_email );
 		$where = '`Email` = %s';
 	} else {
-		$cache = UserCache::find_by( 'Login', $id_or_login_or_email );
 		$where = '`Login` = %s';
 	}
+
+	$cache = UserCache::find_by( array(
+		'ID' => $id_or_login_or_email,
+		'Email' => $id_or_login_or_email,
+		'Login' => $id_or_login_or_email,
+	), 'or' );
 
 	if( $cache )
 		return $cache;

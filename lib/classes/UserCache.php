@@ -5,6 +5,7 @@ namespace MenuBuddy\Users;
 class UserCache extends \MenuBuddy\Cache {
 
 	private static $searchable_fields = array(
+		'ID',
 		'Login',
 		'Email',
 	);
@@ -15,14 +16,28 @@ class UserCache extends \MenuBuddy\Cache {
 		self::$cache[ $object->ID ] = $object;
 	}
 
-	public static function find_by( $field, $value ){
-		if( empty( self::$cache ) )
+	public static function find_by( $find, $relation = 'and' ){
+		if( empty( self::$cache ) || empty( self::$searchable_fields ) )
 			return false;
-		if( !in_array( $field, self::$searchable_fields ) )
-			return $this->get( $value );
+		if( !is_array( $find ) )
+			return false;
+		if( !array_intersect( self::$searchable_fields, array_keys( $find ) ) )
+			return false;
+		$relation = $relation == 'and' ? 'and' : 'or';
 		foreach( self::$cache as $object ){
-			if( $object->$field == $value )
-				return $object;
+			if( 'or' == $relation ){
+				if( array_intersect_assoc( $find, (array)$object ) )
+					return $object;
+			} else {
+				$pass = true;
+				foreach( $find as $field => $value ){
+					if( $value != $object->$field ){
+						$pass = false;
+						break;
+					}
+				}
+				return $pass ? $object : false;
+			}
 		}
 		return false;
 	}

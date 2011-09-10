@@ -224,6 +224,7 @@ class DataBase extends \mysqli {
 	private function init_tables(){
 		$tables = array(
 			'Users',
+			'Extensions',
 		);
 		$check_tables = (defined( 'CHECK_TABLES' ) && CHECK_TABLES);
 		$table_list = $check_tables ? $this->fetch_table_list() : false;

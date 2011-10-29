@@ -36,9 +36,9 @@ class Extensions {
 		$all_extensions = array_keys( $extensions );
 		while( $temp_extensions ){
 			$current = array_shift( $temp_extensions );
-			if( array_diff( $current->Dependencies, $all_extensions ) )
+			if( array_diff( $current->Dependencies, $all_extensions ) || !$current->can_initialize() )
 				continue;
-			if( !array_diff( $current->Dependencies, $good_to_go ) && $current->can_initialize() )
+			if( !array_diff( $current->Dependencies, $good_to_go ) )
 				$good_to_go[ ] = $current->Name;
 			else
 				$temp_extensions[ ] = $current;

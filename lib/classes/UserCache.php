@@ -36,7 +36,9 @@ class UserCache extends \MenuBuddy\Cache {
 						break;
 					}
 				}
-				return $pass ? $object : false;
+				if( $pass ){
+					return $object;
+				}
 			}
 		}
 		return false;

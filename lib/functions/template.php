@@ -15,7 +15,7 @@ function get_template_info( $reset = false ){
 		return $info = null;
 	$info_file = file_get_contents( TEMPLATE_PATH . 'info.json' );
 	if( empty( $info_file ) )
-		$info = null;
+		return $info = null;
 	$info = json_decode( $info_file );
 	return $info;
 }

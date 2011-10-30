@@ -32,8 +32,6 @@ class Request {
 		self::clean_fragment( $root_fragment );
 		if( empty( self::$matches[$root_fragment] ) )
 			return false;
-		if( !class_exists( self::$matches[$root_fragment] ) )
-			return false;
 		return self::$matches[$root_fragment];
 	}
 

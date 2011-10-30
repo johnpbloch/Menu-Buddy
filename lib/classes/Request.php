@@ -4,8 +4,8 @@ namespace MenuBuddy;
 
 class Request {
 
-	static private $matches = array( );
-	static private $core_fragments = array( '_invalid_structure' );
+	static private $matches = array( '_domain_root' => '\\MenuBuddy\\Main' );
+	static private $core_fragments = array( '_invalid_structure', '_domain_root' );
 
 	static function register( $url_fragment, $controller_class ){
 		self::clean_fragment( $url_fragment );
@@ -27,6 +27,8 @@ class Request {
 	}
 
 	static function match( $request ){
+		if( empty( $request ) )
+			$request = '_domain_root';
 		$request_parts = explode( '/', $request );
 		$root_fragment = array_shift( $request_parts );
 		self::clean_fragment( $root_fragment );

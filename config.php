@@ -29,3 +29,9 @@ if( !defined( 'MB_DB_HOST' ) )
 
 if( !defined( 'MB_DB_PREFIX' ) )
 	define( 'MB_DB_PREFIX', 'mbd_' );
+
+if( !defined( 'MB_SITE_ADDRESS' ) )
+	define( 'MB_SITE_ADDRESS', '' );
+
+if( !defined( 'MB_TEMPLATE' ) )
+	define( 'MB_TEMPLATE', 'default' );

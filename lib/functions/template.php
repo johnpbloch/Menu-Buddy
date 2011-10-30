@@ -32,8 +32,8 @@ function startup_check(){
 		return;
 	$info = get_template_info();
 	if( empty( $info ) ){
-	$command = 'ln -s ' . PATH . 'templates/' . MB_TEMPLATE . ' ' . PATH . 'httpdocs/template';
-	exec( $command );
+		$command = 'ln -s ' . PATH . 'templates/' . MB_TEMPLATE . ' ' . PATH . 'httpdocs/template';
+		exec( $command );
 		$info = get_template_info( true );
 	}
 	if( empty( $info ) || empty( $info->template ) || !file_exists( PATH . 'templates/' . $info->template . '/info.json' ) ){

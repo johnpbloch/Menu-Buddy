@@ -35,3 +35,6 @@ if( !defined( 'MB_SITE_ADDRESS' ) )
 
 if( !defined( 'MB_TEMPLATE' ) )
 	define( 'MB_TEMPLATE', 'default' );
+
+if( !defined( 'TEMPLATE_PATH' ) )
+	define( 'TEMPLATE_PATH', PATH . 'httpdocs/template/' );

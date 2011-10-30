@@ -19,6 +19,14 @@ namespace MenuBuddy {
 		return preg_match( '|^([-_a-z0-9]+(\.[-_a-z0-9]+)*)@([-a-z0-9]+(\.[-a-z0-9]+)*(\.[a-z]+)+)$|i', $maybe_email );
 	}
 
+	function is_ssl(){
+		static $ssl = null;
+		if( null !== $ssl )
+			return (bool)$ssl;
+		$ssl = !empty( $_SERVER['HTTPS'] );
+		return (bool)$ssl;
+	}
+
 }
 
 namespace {

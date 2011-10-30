@@ -27,7 +27,7 @@ class Request {
 	}
 
 	static function match( $request ){
-		if( empty( $request ) )
+		if( empty( $request ) || 'index.php' === $request )
 			$request = '_domain_root';
 		$request_parts = explode( '/', $request );
 		$root_fragment = array_shift( $request_parts );

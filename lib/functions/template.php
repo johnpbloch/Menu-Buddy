@@ -11,9 +11,9 @@ function get_template_info( $reset = false ){
 	static $info = false;
 	if( !$reset && $info != false )
 		return $info;
-	if( !file_exists( PATH . 'httpdocs/template/info.json' ) )
+	if( !file_exists( TEMPLATE_PATH . 'info.json' ) )
 		return $info = null;
-	$info_file = file_get_contents( PATH . 'httpdocs/template/info.json' );
+	$info_file = file_get_contents( TEMPLATE_PATH . 'info.json' );
 	if( empty( $info_file ) )
 		$info = null;
 	$info = json_decode( $info_file );

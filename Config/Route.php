@@ -3,8 +3,8 @@
 $config = array();
 
 $config['routes'] = array(
-	''					=> '\Controller\Index',
-	'404'				=> '\Controller\Page404',
+	''					=> '\MenuBuddy\Controller\Index',
+	'404'				=> '\MenuBuddy\Controller\Page404',
 	'login'				=> '\MenuBuddy\Controller\Auth',
 	'auth'				=> '\MenuBuddy\Controller\Auth',
 );

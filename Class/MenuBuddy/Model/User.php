@@ -2,7 +2,7 @@
 
 namespace MenuBuddy\Model;
 
-class User
+class User extends \Core\ORM
 {
-	
+public static $table = 'users';
 }

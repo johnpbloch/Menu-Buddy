@@ -11,7 +11,10 @@
  * @license		http://micromvc.com/license
  * ********************************* 80 Columns *********************************
  */
-abstract class MenuBuddyBase extends \Core\Controller
+
+namespace MenuBuddy;
+
+abstract class Base extends \Core\Controller
 {
 
 	// Global view template

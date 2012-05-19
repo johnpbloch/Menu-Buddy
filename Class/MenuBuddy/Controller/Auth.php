@@ -2,7 +2,7 @@
 
 namespace MenuBuddy\Controller;
 
-class Auth extends \MenuBuddyBase
+class Auth extends \MenuBuddy\Base
 {
 
 	protected function canonicalRedirect()

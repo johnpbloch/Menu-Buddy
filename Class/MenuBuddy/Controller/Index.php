@@ -2,7 +2,7 @@
 
 namespace MenuBuddy\Controller;
 
-class Index extends \MenuBuddyBase
+class Index extends \MenuBuddy\Base
 {
 
 	function run()

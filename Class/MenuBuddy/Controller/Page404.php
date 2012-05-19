@@ -2,7 +2,7 @@
 
 namespace MenuBuddy\Controller;
 
-class Page404 extends \MenuBuddyBase
+class Page404 extends \MenuBuddy\Base
 {
 
 	public function run()

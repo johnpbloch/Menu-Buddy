@@ -2,7 +2,7 @@
 
 namespace MenuBuddy\Controller;
 
-class User extends \MenuBuddyBase
+class User extends \MenuBuddy\Base
 {
 
 	protected function create_form()

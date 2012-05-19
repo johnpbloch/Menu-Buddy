@@ -2,10 +2,37 @@
 
 namespace MenuBuddy\Controller;
 
+use MenuBuddy\Model as M;
+
 class User extends \MenuBuddy\Base
 {
 
 	protected function create_form()
+	{
+		
+	}
+
+	protected function create_user()
+	{
+		
+	}
+
+	protected function delete_form( M\User $user )
+	{
+		
+	}
+
+	protected function delete_user( M\User $user )
+	{
+		
+	}
+
+	protected function edit_form( M\User $user )
+	{
+		
+	}
+
+	protected function edit_user( M\User $user )
 	{
 		
 	}

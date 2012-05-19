@@ -69,8 +69,8 @@ abstract class Base extends \Core\Controller
 		
 		$headerTemplate = !empty( config( 'Layout' )->header ) ? config( 'Layout' )->header : 'MenuBuddy/Header';
 		$footerTemplate = !empty( config( 'Layout' )->footer ) ? config( 'Layout' )->footer : 'MenuBuddy/Footer';
-		$this->header = new Core\View( $headerTemplate );
-		$this->footer = new Core\View( $footerTemplate );
+		$this->header = new \Core\View( $headerTemplate );
+		$this->footer = new \Core\View( $footerTemplate );
 
 		$layout = new \Core\View( $this->template );
 		$layout->set( (array)$this );

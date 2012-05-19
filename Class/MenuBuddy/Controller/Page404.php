@@ -1,6 +1,6 @@
 <?php
 
-namespace Controller;
+namespace MenuBuddy\Controller;
 
 class Page404 extends \MenuBuddyBase
 {

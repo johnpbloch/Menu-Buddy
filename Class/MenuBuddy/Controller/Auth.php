@@ -1,6 +1,6 @@
 <?php
 
-namespace Controller;
+namespace MenuBuddy\Controller;
 
 class Auth extends \MenuBuddyBase
 {

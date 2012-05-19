@@ -17,3 +17,6 @@ Desktop.ini
 *.log
 Uploads
 Storage
+
+# MenuBuddy
+*.local

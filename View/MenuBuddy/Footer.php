@@ -1,1 +1,1 @@
-This is the footer.
+<p>This is the footer.</p>

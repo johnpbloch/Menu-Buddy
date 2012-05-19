@@ -5,6 +5,6 @@ $config = array();
 $config['routes'] = array(
 	''					=> '\Controller\Index',
 	'404'				=> '\Controller\Page404',
-	'login'				=> '\Controller\Auth',
-	'auth'				=> '\Controller\Auth',
+	'login'				=> '\MenuBuddy\Controller\Auth',
+	'auth'				=> '\MenuBuddy\Controller\Auth',
 );

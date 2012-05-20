@@ -38,6 +38,7 @@ $config['database'] = array(
  * System Events
  */
 $config['events'] = array(
+	'system.startup' => '\MenuBuddy\Lib\Util::set_up_services',
 		//'pre_controller'	=> 'Class::method',
 		//'post_controller'	=> 'Class::method',
 );

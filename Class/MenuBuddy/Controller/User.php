@@ -123,6 +123,30 @@ DOC;
 		
 	}
 
+	protected function list_users()
+	{
+		$users = M\User::fetch();
+		$userTable = new \Core\Table( $users );
+		$userTable->column( 'Username', 'username' )
+				->column( 'Email', 'email' )
+				->column( 'Active', 'active', function( M\User $data )
+						{
+							return $data->active ? 'yes' : 'no';
+						} )
+				->column( 'Actions', null, function( M\User $data )
+						{
+							$base = '/user';
+							$id = $data->key();
+							$edit_link = "$base/edit/$id";
+							$delete_link = "$base/delete/$id";
+							$edit_link = \Core\HTML::tag( 'a', 'Edit user', array( 'href' => $edit_link ) );
+							$delete_link = \Core\HTML::tag( 'a', 'Delete user', array( 'href' => $delete_link ) );
+							return $edit_link . ' | ' . $delete_link;
+						} );
+		$this->content = new \Core\View( 'MenuBuddy/User/List' );
+		$this->content->table = $userTable;
+	}
+
 	public function post( $action = '', $user = false )
 	{
 		$this->load_database();
@@ -162,6 +186,7 @@ DOC;
 			case 'edit':
 				break;
 			case 'list':
+				$this->list_users();
 				break;
 			case 'profile':
 				break;

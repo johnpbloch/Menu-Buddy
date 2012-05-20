@@ -38,6 +38,32 @@ class Util
 		return $string;
 	}
 
+	public static function sqltime( $time = false )
+	{
+		if( !$time )
+		{
+			$time = time();
+		}
+		return gmdate( 'Y-m-d H:i:s', $time );
+	}
+
+	public static function unsqltime( $time )
+	{
+		$time = str_replace( array( '-', ' ' ), ':', $time );
+		$time = array_filter( explode( ':', $time ) );
+		foreach($time as &$t) $t = (int)$t;
+		if( count( $time ) != 6 )
+		{
+			throw new \Exception( 'Invalid date format' );
+		}
+		else
+		{
+			//                      hour      minute    second    month     day       year
+			$timestamp = gmmktime( $time[3], $time[4], $time[5], $time[1], $time[2], $time[0] );
+			return $timestamp;
+		}
+	}
+
 	public static function mail( $to, $subject, $message, $headers = '', $attachments = array( ) )
 	{
 		if( empty( $headers ) )

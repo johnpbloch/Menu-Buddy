@@ -3,6 +3,7 @@
 namespace MenuBuddy\Controller;
 
 use MenuBuddy\Model as M;
+use MenuBuddy\Lib as L;
 
 class User extends \MenuBuddy\Base
 {
@@ -51,21 +52,46 @@ class User extends \MenuBuddy\Base
 			$user->pass = $passwordHash;
 			$user->active = false;
 			$key_length = rand( 40, 50 );
-			$user->activation_key = \MenuBuddy\Lib\Util::random_string( $key_length, false );
-			$user->account_created = gmdate( 'Y:m:d H:i:s' );
+			$user->activation_key = L\Util::random_string( $key_length, false );
+			$user->account_created = L\Util::sqltime();
 			$user->save();
 			$message = 'Almost done! Check your email for an activation link and click it to complete the activation of your account!';
-			$this->content = $message;
 			$url = site_url( '/user/activate/' . $user->key() . "/$user->activation_key" );
+			$message .= '<a href="' . $url . '">Activate</a>';
+			$this->content = $message;
 			$message = <<<DOC
 <p>Welcome to MenuBuddy!</p>
 
 <p><a href="$url">Click here to activate your account,</a> or go to $url in your browser.</p>
 DOC;
-			\MenuBuddy\Lib\Util::mail( $user->email, 'Your MenuBuddy account has been created', $message );
+			L\Util::mail( $user->email, 'Your MenuBuddy account has been created', $message );
 			return;
 		}
 		$this->create_form( $validation );
+	}
+
+	protected function activate_user( M\User $user, $code )
+	{
+		if( $user->key() === null )
+		{
+			throw new \Exception( 'That user does not exist' );
+		}
+		elseif( !$code )
+		{
+			throw new \Exception( 'No activation code provided' );
+		}
+		elseif( $code != $user->activation_key )
+		{
+			throw new \Exception( 'Invalid activation code' );
+		}
+		else
+		{
+			$user->activation_key = '';
+			$user->active = true;
+			$user->last_login = L\Util::sqltime();
+			$user->save();
+			$this->content = 'Congratulations! You activated your account!';
+		}
 	}
 
 	protected function delete_form( M\User $user )
@@ -113,6 +139,11 @@ DOC;
 		{
 			case 'create':
 				$this->create_form();
+				break;
+			case 'activate':
+				$user = new M\User( $user );
+				$key = func_num_args() > 2 ? func_get_arg( 2 ) : false;
+				$this->activate_user( $user, $key );
 				break;
 			case 'delete':
 				break;

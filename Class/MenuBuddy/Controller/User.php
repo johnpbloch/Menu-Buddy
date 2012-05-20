@@ -96,12 +96,21 @@ DOC;
 
 	protected function delete_form( M\User $user )
 	{
-		
+		$token = \Core\Session::token();
+		$this->content = new \Core\View( 'MenuBuddy/User/Delete' );
+		$this->content->token = $token;
+		$this->content->user = $user;
 	}
 
 	protected function delete_user( M\User $user )
 	{
-		
+		$token = post( '_mbtoken' );
+		if( \Core\Session::token( $token ) )
+		{
+			$user->delete();
+		}
+		redirect( site_url( '/user/list' ) );
+		exit;
 	}
 
 	protected function edit_form( M\User $user )
@@ -123,6 +132,7 @@ DOC;
 				$this->create_user();
 				break;
 			case 'delete':
+				$this->delete_user( new M\User( $user ) );
 				break;
 			case 'edit':
 				break;
@@ -146,6 +156,8 @@ DOC;
 				$this->activate_user( $user, $key );
 				break;
 			case 'delete':
+				$user = new M\User( $user );
+				$this->delete_form( $user );
 				break;
 			case 'edit':
 				break;

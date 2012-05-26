@@ -2,6 +2,8 @@
 
 namespace MenuBuddy\Lib;
 
+use MicromvcExt\Lib as L;
+
 class Util
 {
 
@@ -21,7 +23,7 @@ class Util
 		self::$service->db( config()->database );
 		self::$service->mail = function( )
 				{
-					return new \PHPMailer();
+					return new L\PHPMailer();
 				};
 	}
 
@@ -201,7 +203,7 @@ class Util
 				}
 				self::$service->mail()->AddAddress( $recipient, $recipient_name );
 			}
-			catch( \phpmailerException $e )
+			catch( L\phpmailerException $e )
 			{
 				continue;
 			}
@@ -227,7 +229,7 @@ class Util
 					}
 					self::$service->mail()->AddCc( $recipient, $recipient_name );
 				}
-				catch( \phpmailerException $e )
+				catch( L\phpmailerException $e )
 				{
 					continue;
 				}
@@ -252,7 +254,7 @@ class Util
 					}
 					self::$service->mail()->AddBcc( $recipient, $recipient_name );
 				}
-				catch( \phpmailerException $e )
+				catch( L\phpmailerException $e )
 				{
 					continue;
 				}
@@ -295,7 +297,7 @@ class Util
 				{
 					self::$service->mail()->AddAttachment( $attachment );
 				}
-				catch( \phpmailerException $e )
+				catch( L\phpmailerException $e )
 				{
 					continue;
 				}
@@ -306,7 +308,7 @@ class Util
 		{
 			self::$service->mail()->Send();
 		}
-		catch( \phpmailerException $e )
+		catch( L\phpmailerException $e )
 		{
 			return false;
 		}

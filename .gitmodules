@@ -1,0 +1,3 @@
+[submodule "Class/MicromvcExt"]
+	path = Class/MicromvcExt
+	url = git://github.com/johnpbloch/MicromvcExt.git

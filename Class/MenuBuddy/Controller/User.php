@@ -47,7 +47,7 @@ class User extends \MenuBuddy\Base
 			$user = new M\User();
 			$user->username = $username;
 			$user->email = $email;
-			$hasher = new \PasswordHash( 12, false );
+			$hasher = new \MicromvcExt\Lib\PasswordHash( 12, false );
 			$passwordHash = $hasher->HashPassword( $pass );
 			$user->pass = $passwordHash;
 			$user->active = false;

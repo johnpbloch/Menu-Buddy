@@ -8,11 +8,11 @@ use MenuBuddy\Lib as L;
 class User extends \MenuBuddy\Base
 {
 
-	protected function create_form( \Core\Validation $validation = null )
+	protected function create_form( \MicromvcExt\Lib\Validation $validation = null )
 	{
 		if( !$validation )
 		{
-			$validation = new \Core\Validation( array( ) );
+			$validation = new \MicromvcExt\Lib\Validation( array( ) );
 		}
 		$form = new \Core\Form( $validation );
 		$form->username->wrap( 'div' )->input( 'text' )->label( 'Name' );
@@ -29,7 +29,7 @@ class User extends \MenuBuddy\Base
 		$email = post( 'email' );
 		$pass = post( 'pass' );
 		$data = compact( 'username', 'email', 'pass' );
-		$validation = new \Core\Validation( $data );
+		$validation = new \MicromvcExt\Lib\Validation( $data );
 		$validation->field( 'username' )
 				->required( 'Username is required!' )
 				->min( 'Usernames must be at least 3 characters long!)', 3 )

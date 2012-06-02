@@ -4,12 +4,6 @@
 		<meta charset="utf-8"/>
 		<title><?php echo empty( $title ) ? 'MenuBuddy' : $title; ?></title>
 
-		<!--[if lt IE 9]>
-			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-
-		<link rel="stylesheet" media="all" href="/CSS/style.css"/>
-
 		<?php
 		//Print all CSS files
 		if( !empty( $css ) ) foreach( $css as $file ) print '<link rel="stylesheet" media="all" href="' . $file . '" />';

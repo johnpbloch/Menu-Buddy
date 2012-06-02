@@ -30,6 +30,11 @@ abstract class Base extends \Core\Controller
 	public function initialize( $method )
 	{
 		\Core\Session::start();
+
+		$headerTemplate = !empty( config( 'Layout' )->header ) ? config( 'Layout' )->header : 'MenuBuddy/Header';
+		$footerTemplate = !empty( config( 'Layout' )->footer ) ? config( 'Layout' )->footer : 'MenuBuddy/Footer';
+		$this->header = new \Core\View( $headerTemplate );
+		$this->footer = new \Core\View( $footerTemplate );
 	}
 
 	/**
@@ -67,11 +72,6 @@ abstract class Base extends \Core\Controller
 
 		headers_sent() OR header( 'Content-Type: text/html; charset=utf-8' );
 		
-		$headerTemplate = !empty( config( 'Layout' )->header ) ? config( 'Layout' )->header : 'MenuBuddy/Header';
-		$footerTemplate = !empty( config( 'Layout' )->footer ) ? config( 'Layout' )->footer : 'MenuBuddy/Footer';
-		$this->header = new \Core\View( $headerTemplate );
-		$this->footer = new \Core\View( $footerTemplate );
-
 		$layout = new \Core\View( $this->template );
 		$layout->set( (array)$this );
 		print $layout;

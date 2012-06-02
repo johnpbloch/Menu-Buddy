@@ -23,6 +23,8 @@
 		<?php echo $header; ?>
 		<?php echo $content; ?>
 		<?php echo $footer; ?>
+
+		<?php if( !empty( $footer_scripts ) ) foreach( $footer_scripts as $file ) print '<script type="text/javascript" src="' . $file . '"></script>';  ?>
 		<?php if( isset( $debug ) && config()->debug ) print '<div id="debug">' . $debug . '</div>'; ?>
 
 	</body>

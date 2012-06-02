@@ -71,7 +71,33 @@ abstract class Base extends \Core\Controller
 		\Core\Session::save();
 
 		headers_sent() OR header( 'Content-Type: text/html; charset=utf-8' );
-		
+
+		$gumby = array(
+			'css' => array(
+				'/gumby/css/gumby.css',
+				'/gumby/css/ui.css',
+			),
+			'javascript' => array(
+				'/gumby/js/libs/modernizr-2.0.6.min.js',
+			),
+			'footer_scripts' => array(
+				'/gumby/js/libs/jquery-1.7.2.min.js',
+				'/gumby/js/libs/gumby.min.js',
+				'/gumby/js/plugins.js'
+			)
+		);
+
+		foreach( $gumby as $type => $files )
+		{
+			if( empty( $this->{$type} ) || !is_array( $this->{$type} ) )
+			{
+				$this->{$type} = $files;
+			}
+			else
+			{
+				$this->{$type} = $files + $this->{$type};
+			}
+		}
 		$layout = new \Core\View( $this->template );
 		$layout->set( (array)$this );
 		print $layout;

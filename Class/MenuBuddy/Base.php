@@ -23,6 +23,7 @@ abstract class Base extends \Core\Controller
 	public $footer = '';
 	public $css = array(
 		'/CSS/text.css',
+		'/CSS/style.css',
 	);
 
 	/**

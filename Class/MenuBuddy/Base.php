@@ -21,6 +21,9 @@ abstract class Base extends \Core\Controller
 	public $template = 'MenuBuddy/Layout';
 	public $header = '';
 	public $footer = '';
+	public $css = array(
+		'/CSS/text.css',
+	);
 
 	/**
 	 * Called after the controller is loaded, before the method

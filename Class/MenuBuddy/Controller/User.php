@@ -169,6 +169,10 @@ DOC;
 	public function get( $action = '', $user = false )
 	{
 		$this->load_database();
+		if( strtolower( PATH ) == '/register' )
+		{
+			$action = 'create';
+		}
 		switch( $action )
 		{
 			case 'create':

@@ -95,7 +95,7 @@ abstract class Base extends \Core\Controller
 			}
 			else
 			{
-				$this->{$type} = $files + $this->{$type};
+				$this->{$type} = array_merge( $files, $this->{$type} );
 			}
 		}
 		$layout = new \Core\View( $this->template );

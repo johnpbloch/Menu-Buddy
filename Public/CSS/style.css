@@ -1,3 +1,7 @@
 #actionsMenu {
 	margin-top: 24px;
 }
+
+.placeholderInput label.placeholderAlt {
+	display: none;
+}

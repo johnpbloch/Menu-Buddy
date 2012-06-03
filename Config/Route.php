@@ -8,4 +8,5 @@ $config['routes'] = array(
 	'login'				=> '\MenuBuddy\Controller\Auth',
 	'auth'				=> '\MenuBuddy\Controller\Auth',
 	'user'				=> '\MenuBuddy\Controller\User',
+	'register'          => '\MenuBuddy\Controller\User',
 );

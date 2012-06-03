@@ -14,7 +14,7 @@ class User extends \MenuBuddy\Base
 		{
 			$validation = new \MicromvcExt\Lib\Validation( array( ) );
 		}
-		$form = new \Core\Form( $validation );
+		$form = new L\GumbyForm( $validation );
 		$form->username->wrap( 'div' )->input( 'text' )->label( 'Name' );
 		$form->email->wrap( 'div' )->input( 'text' )->label( 'Email' );
 		$form->pass->wrap( 'div' )->input( 'password' )->label( 'Password' );

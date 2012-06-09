@@ -5,6 +5,20 @@ namespace MenuBuddy\Lib;
 class GumbyForm extends \Core\Form
 {
 
+	public function checkbox( array $options )
+	{
+		$this->type = 'checkbox';
+		$this->options = $options;
+		return $this;
+	}
+
+	public function radio( array $options )
+	{
+		$this->type = 'radio';
+		$this->options = $options;
+		return $this;
+	}
+
 	protected function render_field()
 	{
 		if( !$this->attributes )
@@ -78,7 +92,48 @@ class GumbyForm extends \Core\Form
 
 	protected function render_checkbox_radio()
 	{
-		
+		if( empty( $this->options ) )
+		{
+			$this->options = array( 0 => array( $this->label, $this->value ) );
+		}
+		$inputs = '';
+		foreach( $this->options as $key => $option )
+		{
+			$input_attributes = array(
+				'name' => $this->field,
+				'id' => $this->field . $key,
+				'type' => $this->type,
+				'style' => 'display:none',
+				'value' => $option[1],
+			);
+			$label_attributes = array(
+				'for' => $input_attributes['id'],
+				'class' => $this->type,
+			);
+			if( $this->type == 'checkbox' )
+			{
+				$submitted_values = $this->validation->value( $this->field );
+				if( ( is_array( $submitted_values ) && in_array( $option[1], $submitted_values ) ) || !empty( $this->attributes['checked'] ) )
+				{
+					$label_attributes['class'] .= ' checked';
+					$input_attributes['checked'] = 'checked';
+				}
+			}
+			else
+			{
+				if( $this->validation->value( $this->field ) == $option[1] )
+				{
+					$label_attributes['class'] .= ' checked';
+					$input_attributes['checked'] = 'checked';
+				}
+			}
+			$input = \Core\HTML::tag( 'input', false, $input_attributes );
+			$input .= '<span></span> ' . $option[0];
+			$input = \Core\HTML::tag( 'label', $input, $label_attributes );
+			$inputs .= \Core\HTML::tag( 'li', $input );
+		}
+		$inputs = \Core\HTML::tag( 'ul', $inputs, array( 'class' => 'field row' ) );
+		return $inputs;
 	}
 
 	protected function render_select()

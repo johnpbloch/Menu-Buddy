@@ -1,3 +1,6 @@
 [submodule "Class/MicromvcExt"]
 	path = Class/MicromvcExt
 	url = git://github.com/johnpbloch/MicromvcExt.git
+[submodule "Class/Verily"]
+	path = Class/Verily
+	url = https://github.com/johnpbloch/verily.git

@@ -148,7 +148,24 @@ class GumbyForm extends \Core\Form
 
 	protected function render_submit_button()
 	{
-		
+		$attributes = $this->attributes + array(
+			'type' => 'submit',
+			'value' => $this->value
+		);
+		if( !empty( $attributes['class'] ) )
+		{
+			$attributes['class'] .= ' btn';
+		}
+		else
+		{
+			$attributes['class'] = 'btn';
+		}
+		$input = \Core\HTML::tag( 'input', false, $attributes );
+		if( $this->tag )
+		{
+			$input = \Core\HTML::tag( $this->tag, $input );
+		}
+		return $input;
 	}
 
 }

@@ -14,3 +14,7 @@ a {
 	color: #999;
 	text-decoration: underline;
 }
+
+.picker a {
+	text-decoration: none;
+}

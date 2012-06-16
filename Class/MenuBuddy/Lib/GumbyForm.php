@@ -138,7 +138,27 @@ class GumbyForm extends \Core\Form
 
 	protected function render_select()
 	{
-		
+		$dummy = token();
+		$labelAttributes = array( 'for' => $this->field, 'class' => 'placeholderAlt' );
+		if( !empty( $this->attributes['always_show_label'] ) )
+		{
+			unset( $labelAttributes['class'], $this->attributes['always_show_label'] );
+		}
+		$label = \Core\HTML::tag( 'label', $this->label, $labelAttributes );
+		$select = \Core\HTML::select( $this->field, $this->options, ( $this->value ? $this->value : $dummy ), $this->attributes );
+		$toggleText = $this->value && !empty( $this->options[$this->value] ) ? $this->options[$this->value] : $this->label;
+		$toggle = \Core\HTML::link( '#', $toggleText . '<span class="caret"></span>', array( 'class' => 'toggle' ) );
+		$list = '';
+		foreach( $this->options as $opt )
+		{
+			$l = \Core\HTML::link( '#', $opt );
+			$list .= \Core\HTML::tag( 'li', $l );
+		}
+		$list = \Core\HTML::tag( 'ul', $list );
+		$output = \Core\HTML::tag( 'li', $select . $toggle . $list, array( 'class' => 'picker' ) );
+		$output = \Core\HTML::tag( 'ul', $output, array( 'class' => 'field row' ) );
+		$output = \Core\HTML::tag( 'div', $label . $output );
+		return str_replace( $dummy, '', $output );
 	}
 
 	protected function render_textarea()

@@ -23,10 +23,15 @@ class Auth extends \MenuBuddy\Base
 		exit;
 	}
 
+	public function initialize( $method )
+	{
+		parent::initialize( $method );
+		$this->canonicalRedirect();
+	}
+
 	function run()
 	{
-		$this->canonicalRedirect();
-		$this->content = 'This is the content';
+		
 	}
 
 }

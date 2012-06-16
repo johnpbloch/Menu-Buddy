@@ -29,6 +29,27 @@ class Auth extends \MenuBuddy\Base
 		$this->canonicalRedirect();
 	}
 
+	public function get( $action )
+	{
+		switch( $action )
+		{
+			case 'login':
+				$this->content = \Verily\Verily::form();
+				break;
+			case 'logout':
+				$this->content = \Verily\Verily::log_out();
+				break;
+		}
+	}
+
+	public function post( $action )
+	{
+		if( $action == 'login' )
+		{
+			$this->content = \Verily\Verily::log_in();
+		}
+	}
+
 	function run()
 	{
 		

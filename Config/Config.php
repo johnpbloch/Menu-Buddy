@@ -66,3 +66,5 @@ if( file_exists( __FILE__ . '.local' ) )
 {
 	require __FILE__ . '.local';
 }
+
+$config['verilyIsInstalled'] = true;

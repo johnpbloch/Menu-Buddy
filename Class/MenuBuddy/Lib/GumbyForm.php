@@ -143,7 +143,24 @@ class GumbyForm extends \Core\Form
 
 	protected function render_textarea()
 	{
-		
+		$attributes = $this->attributes;
+		foreach( array( 'value', 'type' ) as $attr )
+		{
+			if( isset( $attributes[$attr] ) )
+			{
+				unset( $attributes[$attr] );
+			}
+		}
+		$label = '';
+		if( $this->label )
+		{
+			$attributes['placeholder'] = (string)$this->label;
+			$label = \Core\HTML::tag( 'label', $this->label, array( 'for' => $this->field, 'class' => 'placeholderAlt' ) );
+		}
+		$ta = \Core\HTML::tag( 'textarea', $this->value, $attributes );
+		$output = $label . \Core\HTML::tag( 'div', $ta, array( 'class' => 'textarea' ) );
+		$wrap = $this->tag ? $this->tag : 'div';
+		return \Core\HTML::tag( $wrap, $output, array( 'class' => 'field row' ) );
 	}
 
 	protected function render_submit_button()
